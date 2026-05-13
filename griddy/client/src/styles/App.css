@@ -1,0 +1,8 @@
+:root {
+    --backgroud: #1e1e1e;
+}
+
+body, html {
+    background-color: var(--backgroud);
+    overflow-x: hidden;
+}

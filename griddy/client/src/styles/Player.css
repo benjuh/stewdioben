@@ -1,0 +1,105 @@
+:root {
+    --background: #1e1e1e;
+    --grid-color: #797979;
+    --accent: #7186ff;
+}
+
+html, body {
+    scroll-behavior: smooth !important;
+}
+
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+
+.container {
+    /* border: 2px solid rgba(163, 163, 163, 0.8); */
+    margin: 5px auto;
+    height: 500px;
+    width: 900px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0);
+    overflow: auto;
+    padding: 20px;
+    overflow-x:hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.container::-webkit-scrollbar {
+    /* display: none; */
+    width: 0em;
+    height: 0em;
+}
+
+.player {
+    color: white;
+    border: 2px solid rgba(163, 163, 163, 0.8);
+    background-color: #1e1e1eec;
+    margin: 10px auto;
+    padding-top: 20px;
+    padding-left: 20px;
+    border-radius: 8px;
+}
+
+.player img {
+    padding: 20px;
+    max-width: 60px;
+    max-height: 60px;
+}
+
+.player:hover {
+    border: 2px solid var(--accent);
+    cursor: grab;
+}
+
+.player:active {
+    border: 2px solid #7186ffa0;
+}
+
+.player-name {
+    /* move down 50% */
+    transform: translateY(50%);
+    
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #b1b1b19e;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.years-played {
+    color: #ffffff78;
+    font-size: 20px;
+    /* move down 50% */
+    transform: translateY(25%);
+}
+
+.player-college {
+    margin: 10px 7px;
+    float: left;
+    text-align: center;
+}
+.player-team {
+    float: left;
+}
+
+.player-photo {
+    float: left;
+    width: 90px;
+    height: 90px;
+    /* background-color: red; */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-image {
+    min-width: 90px;
+    min-height: 90px;
+    border-radius: 4px;
+
+}
