@@ -1,0 +1,6 @@
+node_modules/
+griddy/client/build/
+griddy/client/node_modules/
+.DS_Store
+.superpowers/
+*.log
