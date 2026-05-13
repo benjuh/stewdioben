@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stewordle</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-left">
+      <span class="title">Stewordle</span>
+      <button class="theme-toggle" id="theme-toggle">&#9788; Light</button>
+    </div>
+    <nav class="mode-tabs" id="mode-tabs">
+      <button class="mode-tab active" data-mode="classic">Classic</button>
+      <button class="mode-tab" data-mode="quad">Quad</button>
+      <button class="mode-tab" data-mode="octo">Octo</button>
+      <button class="mode-tab" data-mode="16">16</button>
+    </nav>
+  </header>
+
+  <div class="game-container" id="game-container">
+    <div class="board-badges" id="board-badges"></div>
+    <div class="board-grid" id="board-container"></div>
+  </div>
+
+  <div class="keyboard-container">
+    <div class="keyboard" id="keyboard"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

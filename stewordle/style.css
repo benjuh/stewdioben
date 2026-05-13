@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap');
+
+/* ── Theme variables ── */
+:root {
+  --bg:                  #0d0d1a;
+  --bg-board:            #1e1e3a;
+  --bg-tile-absent:      #2c2c3a;
+  --tile-border:         #2a2a4a;
+  --tile-active-border:  #a78bfa;
+  --tile-correct:        #22c55e;
+  --tile-correct-glow:   rgba(34,197,94,0.33);
+  --tile-present:        #f59e0b;
+  --tile-present-glow:   rgba(245,158,11,0.33);
+  --text:                #ffffff;
+  --text-muted:          #888888;
+  --key-bg:              #1e1e3a;
+  --key-border:          rgba(167,139,250,0.2);
+  --key-text:            #a78bfa;
+  --key-absent-bg:       #2a2a3a;
+  --key-absent-text:     #444444;
+  --tab-active-from:     #a78bfa;
+  --tab-active-to:       #38bdf8;
+  --title-color:         #38bdf8;
+  --badge-active-border: #f59e0b;
+  --badge-solved-bg:     #22c55e;
+  --badge-lost-bg:       #ef4444;
+  --board-solved-border: rgba(34,197,94,0.4);
+  --board-solved-bg:     rgba(15,31,15,0.8);
+  --overlay-bg:          rgba(0,0,0,0.85);
+  --overlay-box-bg:      #1e1e3a;
+}
+
+body.light {
+  --bg:                  #f5f0e8;
+  --bg-board:            #ffffff;
+  --bg-tile-absent:      #d3d6da;
+  --tile-border:         #d3d6da;
+  --tile-active-border:  #888888;
+  --tile-correct:        #6aaa64;
+  --tile-correct-glow:   transparent;
+  --tile-present:        #c9b458;
+  --tile-present-glow:   transparent;
+  --text:                #1a1a1a;
+  --text-muted:          #666666;
+  --key-bg:              #d3d6da;
+  --key-border:          #aaaaaa;
+  --key-text:            #1a1a1a;
+  --key-absent-bg:       #878a8c;
+  --key-absent-text:     #ffffff;
+  --tab-active-from:     #6aaa64;
+  --tab-active-to:       #c9b458;
+  --title-color:         #1a6aaa;
+  --badge-active-border: #c9b458;
+  --board-solved-border: rgba(106,170,100,0.5);
+  --board-solved-bg:     rgba(240,255,240,0.9);
+  --overlay-bg:          rgba(245,240,232,0.92);
+  --overlay-box-bg:      #ffffff;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  touch-action: pan-x pan-y;
+}
+
+/* ── Header ── */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--tile-border);
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--title-color);
+  text-transform: uppercase;
+}
+
+.theme-toggle {
+  padding: 4px 10px;
+  background: var(--key-bg);
+  border: 1px solid var(--key-border);
+  border-radius: 20px;
+  color: var(--key-text);
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* ── Mode tabs ── */
+.mode-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.mode-tab {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid var(--tile-border);
+  background: var(--key-bg);
+  color: var(--text-muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.mode-tab.active {
+  background: var(--tab-active-from);
+  border-color: transparent;
+  color: #0d0d1a;
+}
+
+/* ── Game container ── */
+.game-container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 14px 20px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ── Board badges ── */
+.board-badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.board-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  border: 1px solid var(--tile-border);
+  color: var(--text-muted);
+  background: var(--bg-board);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.board-badge.badge-active {
+  border-color: var(--badge-active-border);
+  color: var(--badge-active-border);
+}
+
+.board-badge.badge-solved {
+  background: var(--badge-solved-bg);
+  border-color: var(--badge-solved-bg);
+  color: #fff;
+}
+
+.board-badge.badge-lost {
+  background: var(--badge-lost-bg);
+  border-color: var(--badge-lost-bg);
+  color: #fff;
+}
+
+/* ── Board grid ── */
+.board-grid {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+.board-grid.mode-classic { grid-template-columns: 1fr; max-width: 380px; width: 380px; flex: 1; }
+.board-grid.mode-quad    { grid-template-columns: repeat(2, 1fr); max-width: 760px; }
+.board-grid.mode-octo    { grid-template-columns: repeat(4, 1fr); width: 100%; }
+.board-grid.mode-16      { grid-template-columns: repeat(4, 1fr); width: 100%; }
+
+.board-cell {
+  background: var(--bg-board);
+  border: 1px solid var(--tile-border);
+  border-radius: 6px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.board-cell.solved {
+  background: var(--board-solved-bg);
+  border-color: var(--board-solved-border);
+}
+
+.board-cell.lost {
+  border-color: rgba(239,68,68,0.4);
+}
+
+.board-label {
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  min-height: 10px;
+}
+
+.board-cell.solved .board-label { color: var(--tile-correct); }
+
+.board-answer {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ef4444;
+  text-transform: uppercase;
+  min-height: 11px;
+}
+
+/* ── Rows and tiles ── */
+.board { display: flex; flex-direction: column; gap: 3px; }
+.row   { display: flex; gap: 3px; }
+
+/* Classic mode: stretch board to fill available height */
+.board-grid.mode-classic .board-cell { height: 100%; }
+.board-grid.mode-classic .board { flex: 1; }
+.board-grid.mode-classic .row { flex: 1; }
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: 1px solid var(--tile-border);
+  border-radius: 3px;
+  transition: border-color 0.1s, transform 0.1s;
+  color: var(--text);
+}
+
+.mode-classic .tile { width: 62px; height: auto; max-height: 80px; font-size: 2em; }
+.mode-quad    .tile { width: 46px; height: 46px; font-size: 1.5em; }
+.mode-octo    .tile { width: 32px; height: 32px; font-size: 1em; }
+.mode-16      .tile { width: 26px; height: 26px; font-size: 0.75em; }
+
+.tile.tile-active { border-color: var(--tile-active-border); }
+.tile.pulse       { transform: scale(1.1); }
+.tile.invalid     { border-color: #ef4444 !important; }
+
+.tile.correct {
+  background: var(--tile-correct);
+  color: #fff;
+  border-color: var(--tile-correct);
+  box-shadow: 0 0 8px var(--tile-correct-glow);
+}
+.tile.present {
+  background: var(--tile-present);
+  color: #fff;
+  border-color: var(--tile-present);
+  box-shadow: 0 0 8px var(--tile-present-glow);
+}
+.tile.absent {
+  background: var(--bg-tile-absent);
+  color: var(--text-muted);
+  border-color: var(--bg-tile-absent);
+}
+
+/* ── Keyboard ── */
+.keyboard-container {
+  width: 100%;
+  padding: 10px 20px 20px;
+  border-top: 1px solid var(--tile-border);
+  background: var(--bg);
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+}
+
+.keyboard { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
+.keyboard-row { display: flex; gap: 5px; justify-content: center; }
+
+.key {
+  flex: 1;
+  max-width: 52px;
+  height: 58px;
+  padding: 0 4px;
+  background: var(--key-bg);
+  border: 1px solid var(--key-border);
+  border-radius: 5px;
+  color: var(--key-text);
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.1s;
+  user-select: none;
+}
+
+.key.key-wide { max-width: 72px; font-size: 11px; }
+.key:active, .key.key-hover { filter: brightness(0.75); }
+.key.key-absent { background: var(--key-absent-bg) !important; color: var(--key-absent-text) !important; }
+.key.key-correct, .key.key-present { color: #fff !important; }
+
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay-box {
+  background: var(--overlay-box-bg);
+  border: 1px solid var(--tile-border);
+  border-radius: 10px;
+  padding: 28px 36px;
+  text-align: center;
+  max-width: 440px;
+  width: 90%;
+}
+
+.overlay-box h1 { font-size: 2em; margin-bottom: 8px; }
+.overlay-box h2 { font-size: 1em; color: var(--text-muted); margin-bottom: 16px; font-weight: 600; }
+
+.overlay-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.overlay-word {
+  padding: 5px 12px;
+  background: var(--bg-tile-absent);
+  border-radius: 4px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
+.play-again-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--tile-correct);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1em;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* ── Responsive: iPad portrait (≤820px) ── */
+@media (max-width: 820px) {
+  .mode-octo .tile { width: 28px; height: 28px; font-size: 0.85em; }
+  .mode-16   .tile { width: 20px; height: 20px; font-size: 0.6em; }
+}
+
+/* ── Responsive: mobile (≤600px) ── */
+@media (max-width: 600px) {
+  .header { padding: 10px 12px 8px; }
+  .title  { font-size: 16px; letter-spacing: 2px; }
+  .mode-tab { padding: 4px 8px; font-size: 9px; }
+  .theme-toggle { font-size: 10px; padding: 3px 7px; }
+
+  .game-container { padding: 8px 8px 6px; }
+
+  .board-grid.mode-classic { width: auto; max-width: calc(100vw - 32px); }
+  .board-grid.mode-octo    { grid-template-columns: repeat(2, 1fr); }
+
+  .mode-classic .tile { width: 52px; height: auto; max-height: 64px; font-size: 1.6em; }
+  .mode-quad    .tile { width: 36px; height: 36px; font-size: 1.1em; }
+  .mode-octo    .tile { width: 30px; height: 30px; font-size: 0.9em; }
+  .mode-16      .tile { width: 14px; height: 14px; font-size: 0.45em; }
+
+  .key { height: 42px; font-size: 10px; }
+  .key.key-wide { max-width: 52px; font-size: 9px; }
+  .keyboard-row { gap: 3px; }
+  .keyboard { gap: 4px; }
+  .keyboard-container { padding: 6px 8px 12px; }
+}
+
+/* ── Responsive: small phone (≤390px) ── */
+@media (max-width: 390px) {
+  .title { font-size: 13px; letter-spacing: 1px; }
+  .mode-tab { padding: 3px 6px; font-size: 8px; }
+
+  .mode-classic .tile { width: 44px; font-size: 1.3em; }
+  .mode-quad    .tile { width: 30px; height: 30px; font-size: 0.9em; }
+  .mode-octo    .tile { width: 26px; height: 26px; font-size: 0.8em; }
+
+  .key { height: 38px; font-size: 9px; }
+  .key.key-wide { max-width: 48px; }
+  .keyboard-row { gap: 2px; }
+  .keyboard { gap: 3px; }
+}
