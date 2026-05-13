@@ -1,0 +1,17 @@
+{
+  "name": "stewdioben",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd griddy/client && npm install && npm run build",
+    "test": "jest",
+    "dev:griddy": "cd griddy/client && npm start"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathPattern": "api/"
+  }
+}
