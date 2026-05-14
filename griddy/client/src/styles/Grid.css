@@ -274,6 +274,59 @@ html, body {
     color: var(--text-muted);
 }
 
+/* ── Game actions ── */
+.game-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 4px 0 12px;
+}
+
+.action-btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: 1px solid;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.give-up-btn {
+    background: transparent;
+    border-color: rgba(250, 78, 68, 0.45);
+    color: rgba(250, 78, 68, 0.75);
+}
+
+.give-up-btn:hover {
+    background: rgba(250, 78, 68, 0.12);
+    border-color: #FA4E44;
+    color: #FA4E44;
+}
+
+.play-again-btn-inline {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.play-again-btn-inline:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Hints used counter ── */
+.hints-used-display {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 0 24px;
+}
+
 /* ── Win screen ── */
 .win-modal {
     position: fixed;
@@ -283,22 +336,71 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.win-modal-inner {
+    display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
 }
 
 .win-modal h1 {
     font-weight: 900;
-    font-size: clamp(60px, 15vw, 160px);
+    font-size: clamp(48px, 12vw, 120px);
     color: #5AD14F;
     text-shadow: 0 0 40px rgba(90, 209, 79, 0.5);
     font-style: italic;
-    text-align: center;
+    margin: 0;
 }
 
-.win-modal h2 {
+.win-stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.win-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.win-stat-label {
+    font-size: 0.7rem;
     font-weight: 700;
-    font-size: clamp(16px, 3vw, 28px);
-    color: rgba(255, 255, 255, 0.6);
-    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.win-stat-value {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.play-again-btn {
+    padding: 12px 36px;
+    border-radius: 10px;
+    background: #5AD14F;
+    border: none;
+    color: #0d0d1a;
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.play-again-btn:hover {
+    background: #72e067;
+    transform: scale(1.03);
+}
+
+.play-again-btn:active {
+    transform: scale(0.97);
 }

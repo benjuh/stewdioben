@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/Hints.css";
 import Player from "./player";
 
-const Hints = ({ solutions, hintsOpen, hintsSquare, closeHints }) => {
+const Hints = ({ solutions, hintsOpen, hintsSquare, closeHints, showNames }) => {
   React.useEffect(() => {
     const handleEsc = (event) => {
       if (event.keyCode === 27) closeHints();
@@ -25,7 +25,7 @@ const Hints = ({ solutions, hintsOpen, hintsSquare, closeHints }) => {
           changeSquare={() => {}}
           closeModal={closeHints}
           searched={""}
-          isHint={true}
+          isHint={!showNames}
           currentSquare={0}
         />
       </div>

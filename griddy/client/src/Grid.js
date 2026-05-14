@@ -96,8 +96,18 @@ function Grid({ players }) {
   const [currentSquare, setCurrentSquare] = React.useState(0);
   const [hintsOpen, setHintsOpen] = React.useState(false);
   const [hintsSquare, setHintsSquare] = React.useState(null);
-  const openHintsSquare = (n) => { setHintsOpen(true); setHintsSquare(n); };
-  const closeHints = () => { setHintsOpen(false); setHintsSquare(null); };
+  const [hintsShowNames, setHintsShowNames] = React.useState(false);
+  const [hintsUsedSet, setHintsUsedSet] = React.useState(new Set());
+  const startTimeRef = React.useRef(Date.now());
+  const [winTime, setWinTime] = React.useState(null);
+  const [gaveUp, setGaveUp] = React.useState(false);
+  const openHintsSquare = (n, showNames = false) => {
+    setHintsOpen(true);
+    setHintsSquare(n);
+    setHintsShowNames(showNames);
+    if (!showNames) setHintsUsedSet(prev => new Set([...prev, n]));
+  };
+  const closeHints = () => { setHintsOpen(false); setHintsSquare(null); setHintsShowNames(false); };
 
   const [search, setSearch] = React.useState("");
   const [parameters, setParameters] = React.useState([
@@ -115,15 +125,34 @@ function Grid({ players }) {
   };
 
   const WinScreen = () => {
+    if (winTime === null) return null;
+    const mins = Math.floor(winTime / 60);
+    const secs = winTime % 60;
+    const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+    const uniquePlayers = new Set(
+      gridContent.filter(c => c && !c.gaveUp).map(c => c.name)
+    ).size;
     return (
-      !gridContent.includes(null) && (
-        <div className="win-modal">
-          <div>
-            <h1>You Win!</h1>
-            <h2>Refresh the page to play again :)</h2>
+      <div className="win-modal">
+        <div className="win-modal-inner">
+          <h1>Congratulations!</h1>
+          <div className="win-stats">
+            <div className="win-stat">
+              <span className="win-stat-label">Time</span>
+              <span className="win-stat-value">{timeStr}</span>
+            </div>
+            <div className="win-stat">
+              <span className="win-stat-label">Hints Used</span>
+              <span className="win-stat-value">{hintsUsedSet.size}</span>
+            </div>
+            <div className="win-stat">
+              <span className="win-stat-label">Unique Players</span>
+              <span className="win-stat-value">{uniquePlayers}</span>
+            </div>
           </div>
+          <button className="play-again-btn" onClick={() => window.location.reload()}>Play Again</button>
         </div>
-      )
+      </div>
     );
   };
 
@@ -468,6 +497,21 @@ function Grid({ players }) {
   ]);
   const [solutions, setSolutions] = React.useState([]);
 
+  const giveUpGame = () => {
+    const newGrid = gridContent.map(c => c === null ? { gaveUp: true } : c);
+    setGaveUp(true);
+    setGridContent(newGrid);
+  };
+
+  const handleTileClick = (squareNum) => {
+    const idx = squareNum - 1;
+    if (gridContent[idx]?.gaveUp) {
+      openHintsSquare(idx, true);
+    } else {
+      openModal(squareNum);
+    }
+  };
+
   const solveSquare = (player, param1, param2) => {
     if (param1.paramType === "teams" && param2.paramType === "teams") {
       if (
@@ -628,6 +672,16 @@ function Grid({ players }) {
     return () => window.removeEventListener("keydown", handler, false);
   }, []);
 
+  React.useEffect(() => {
+    if (
+      solutions.length > 0 &&
+      winTime === null &&
+      gridContent.every(c => c !== null && !c?.gaveUp)
+    ) {
+      setWinTime(Math.floor((Date.now() - startTimeRef.current) / 1000));
+    }
+  }, [gridContent]);
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -646,15 +700,22 @@ function Grid({ players }) {
       <div className="griddy-header">
         <a href="/" className="hub-back">← Hub</a>
         <h1 className="griddy-title">GRIDDY</h1>
-        <Timer />
+        <Timer stopped={winTime !== null} />
       </div>
       <Hints
         solutions={solutions}
         hintsOpen={hintsOpen}
         hintsSquare={hintsSquare}
         closeHints={closeHints}
+        showNames={hintsShowNames}
       />
       <GameMode />
+      <div className="game-actions">
+        {!gaveUp && winTime === null && (
+          <button className="action-btn give-up-btn" onClick={giveUpGame}>Give Up</button>
+        )}
+        <button className="action-btn play-again-btn-inline" onClick={() => window.location.reload()}>Play Again</button>
+      </div>
       {isOpen && (
         <div className="modal" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -712,7 +773,7 @@ function Grid({ players }) {
         <div
           style={gridContent[0] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(1)}
+          onClick={() => handleTileClick(1)}
         >
           <h1>{solutionsPerSquare[0]}</h1>
           {!gridContent[0] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -722,7 +783,7 @@ function Grid({ players }) {
         <div
           style={gridContent[1] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(2)}
+          onClick={() => handleTileClick(2)}
         >
           <h1>{solutionsPerSquare[1]}</h1>
           {!gridContent[1] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -732,7 +793,7 @@ function Grid({ players }) {
         <div
           style={gridContent[2] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(3)}
+          onClick={() => handleTileClick(3)}
         >
           <h1>{solutionsPerSquare[2]}</h1>
           {!gridContent[2] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -749,7 +810,7 @@ function Grid({ players }) {
         <div
           style={gridContent[3] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(4)}
+          onClick={() => handleTileClick(4)}
         >
           <h1>{solutionsPerSquare[3]}</h1>
           {!gridContent[3] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -759,7 +820,7 @@ function Grid({ players }) {
         <div
           style={gridContent[4] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(5)}
+          onClick={() => handleTileClick(5)}
         >
           <h1>{solutionsPerSquare[4]}</h1>
           {!gridContent[4] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -769,7 +830,7 @@ function Grid({ players }) {
         <div
           style={gridContent[5] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(6)}
+          onClick={() => handleTileClick(6)}
         >
           <h1>{solutionsPerSquare[5]}</h1>
           {!gridContent[5] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -786,7 +847,7 @@ function Grid({ players }) {
         <div
           style={gridContent[6] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(7)}
+          onClick={() => handleTileClick(7)}
         >
           <h1>{solutionsPerSquare[6]}</h1>
           {!gridContent[6] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -796,7 +857,7 @@ function Grid({ players }) {
         <div
           style={gridContent[7] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(8)}
+          onClick={() => handleTileClick(8)}
         >
           <h1>{solutionsPerSquare[7]}</h1>
           {!gridContent[7] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -806,7 +867,7 @@ function Grid({ players }) {
         <div
           style={gridContent[8] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
-          onClick={() => openModal(9)}
+          onClick={() => handleTileClick(9)}
         >
           <h1>{solutionsPerSquare[8]}</h1>
           {!gridContent[8] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
@@ -814,6 +875,7 @@ function Grid({ players }) {
           )}
         </div>
       </div>
+      <div className="hints-used-display">Hints Used: {hintsUsedSet.size}</div>
     </div>
   );
 }

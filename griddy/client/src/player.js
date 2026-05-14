@@ -64,7 +64,6 @@ import TB from "./assets/NFL_TEAMS/TB.png";
 import TEN from "./assets/NFL_TEAMS/TEN.png";
 import WAS from "./assets/NFL_TEAMS/WAS.png";
 
-import USER from "./assets/User.png";
 
 function Player({
   players,
@@ -79,23 +78,7 @@ function Player({
     return Math.floor(Math.random() * Math.floor(max));
   };
 
-  const BATCH_SIZE = 5;
-  const BATCH_DELAY = 150;
-
   const [matchedPlayers, setMatchedPlayers] = React.useState([]);
-  const [imageRevealCount, setImageRevealCount] = React.useState(BATCH_SIZE);
-
-  useEffect(() => {
-    setImageRevealCount(BATCH_SIZE);
-  }, [matchedPlayers]);
-
-  useEffect(() => {
-    if (imageRevealCount >= matchedPlayers.length) return;
-    const timer = setTimeout(() => {
-      setImageRevealCount((prev) => Math.min(prev + BATCH_SIZE, matchedPlayers.length));
-    }, BATCH_DELAY);
-    return () => clearTimeout(timer);
-  }, [imageRevealCount, matchedPlayers.length]);
 
   useEffect(() => {
     if (searched === "" && !isHint) {
@@ -111,16 +94,19 @@ function Player({
       }
       setMatchedPlayers(new_players);
     } else {
-      const q = searched.toLowerCase();
-      let new_players = players.filter((player) =>
-        player.name.toLowerCase().includes(q)
-      );
+      const normalize = (s) => s.toLowerCase().replace(/[-']/g, '');
+      const q = normalize(searched);
+      const queryTokens = q.split(/\s+/).filter(Boolean);
+      let new_players = players.filter((player) => {
+        if (queryTokens.length === 0) return true;
+        const nameTokens = normalize(player.name).split(/\s+/);
+        return queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)));
+      });
       const rank = (name) => {
-        const n = name.toLowerCase();
+        const n = normalize(name);
         if (n === q) return 0;
         if (n.startsWith(q)) return 1;
         const nameTokens = n.split(/\s+/);
-        const queryTokens = q.split(/\s+/).filter(Boolean);
         if (queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)))) return 2;
         return 3;
       };
@@ -341,18 +327,13 @@ function Player({
     let amount = Math.min(MAX_PLAYERS, matchedPlayers.length);
     let players_to_render = matchedPlayers.slice(0, amount);
 
-    return players_to_render.map((player, index) => {
+    return players_to_render.map((player) => {
       let logos = generateLogos(player);
       let teams = logos[0];
       teams = new Set(teams);
       teams = Array.from(teams);
 
       let positions = player.position.join(", ");
-      const showRealImage = index < imageRevealCount;
-      const imgSrc =
-        showRealImage && player.url && player.url !== "None" && !isHint
-          ? player.url
-          : USER;
 
       return (
         <div
@@ -363,14 +344,6 @@ function Player({
             closeModal();
           }}
         >
-          <div className="player-photo">
-            <img
-              src={imgSrc}
-              alt="player"
-              className="player-image"
-              loading="lazy"
-            />
-          </div>
           <div className="player-info">
             <div className="player-name">
               {isHint ? "?" : player.name} - {positions}
