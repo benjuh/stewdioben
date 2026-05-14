@@ -1,59 +1,63 @@
 .hints-container {
-    /* background-color: red; */
-    width: 300px;
-    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
-    align-items: center;
-    top: 15%; 
-    z-index: 0;
-
+    padding: 12px 16px;
+    max-width: min(800px, 95vw);
+    margin: 0 auto;
 }
 
 .hint-box {
-    height: 55px;
-    background-color: #2d2d2dec;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    font-style: italic;
-    margin-bottom: 17px;
-    margin-left: 40px;
-    margin-top: 8px;
-    border-radius: 4px;
-    border: 2px solid #ffffffbd;
+    height: 44px;
+    min-width: 120px;
+    background-color: #1e1e3a;
+    color: #60a5fa;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: 8px;
+    border: 1px solid rgba(96, 165, 250, 0.25);
     display: flex;
-    text-align: center;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 5px #ffffff94;
-    text-shadow: 0 0 5px #ffffff94;
-    z-index: -1;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    padding: 0 14px;
 }
 
-
 .hint-box:hover {
-    left: 0;
-    background-color: #2761cc;
-    transition: ease-in-out 0.2s;
-    cursor: grab;
+    background-color: rgba(96, 165, 250, 0.15);
+    border-color: #60a5fa;
+    box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
 }
 
 .hints-header {
-    color: #fff;
-    font-size: 30px;
-    font-weight: bold;
-    font-style: italic;
+    color: #60a5fa;
+    font-size: 1.1rem;
+    font-weight: 700;
     padding: 10px;
     text-align: center;
-    text-shadow: 0 0 5px #ffffff94;
 }
 
 .background {
-    position: absolute; 
-    z-index: 1;
-    top: -20px; 
-    left: -10%; 
-    width: 120%; 
-    height: 1000px; 
-    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.players-container {
+    position: fixed;
+    z-index: 11;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(860px, 95vw);
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #1e1e3a;
+    border-radius: 12px;
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    padding: 20px;
 }

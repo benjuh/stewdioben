@@ -1,10 +1,10 @@
 .timer {
-    color: white;
-    position: absolute;
-    top: 40px;
-    left: 120px;
-    font-size: 50px;
-    font-weight: bold;
+    color: #60a5fa;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
     font-style: italic;
-    text-shadow: 0 0 5px #ffffff94;
+    letter-spacing: 0.05em;
+    padding: 8px 0 4px;
+    opacity: 0.8;
 }

@@ -361,17 +361,10 @@ function Player({
               src={imgSrc}
               alt="player"
               className="player-image"
+              loading="lazy"
             />
           </div>
-          <div
-            style={{
-              display: "inline-block",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "10px",
-              height: "90px",
-            }}
-          >
+          <div className="player-info">
             <div className="player-name">
               {isHint ? "?" : player.name} - {positions}
             </div>
