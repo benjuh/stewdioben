@@ -1,5 +1,6 @@
 {
   "buildCommand": "npm run build",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/stewordle", "destination": "/stewordle/index.html" },
     { "source": "/griddy", "destination": "/griddy/client/build/index.html" },
