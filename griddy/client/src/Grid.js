@@ -94,6 +94,10 @@ function Grid({ players }) {
   ]);
 
   const [currentSquare, setCurrentSquare] = React.useState(0);
+  const [hintsOpen, setHintsOpen] = React.useState(false);
+  const [hintsSquare, setHintsSquare] = React.useState(null);
+  const openHintsSquare = (n) => { setHintsOpen(true); setHintsSquare(n); };
+  const closeHints = () => { setHintsOpen(false); setHintsSquare(null); };
 
   const [search, setSearch] = React.useState("");
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
@@ -627,14 +631,17 @@ function Grid({ players }) {
 
   return (
     <div>
-      <a href="/" className="hub-back">← stewdioben</a>
       <WinScreen />
-      <Timer />
+      <div className="griddy-header">
+        <a href="/" className="hub-back">← Hub</a>
+        <h1 className="griddy-title">GRIDDY</h1>
+        <Timer />
+      </div>
       <Hints
-        solutionsPerSquare={solutionsPerSquare}
         solutions={solutions}
-        gameMode={gameMode}
-        gridContent={gridContent}
+        hintsOpen={hintsOpen}
+        hintsSquare={hintsSquare}
+        closeHints={closeHints}
       />
       <GameMode />
       {isOpen && (
@@ -692,37 +699,34 @@ function Grid({ players }) {
           )}
         </div>
         <div
-          style={
-            gridContent[0]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[0] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(1)}
         >
           <h1>{solutionsPerSquare[0]}</h1>
+          {!gridContent[0] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(0); }}>?</button>
+          )}
         </div>
         <div
-          style={
-            gridContent[1]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[1] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(2)}
         >
           <h1>{solutionsPerSquare[1]}</h1>
+          {!gridContent[1] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(1); }}>?</button>
+          )}
         </div>
         <div
-          style={
-            gridContent[2]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[2] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(3)}
         >
           <h1>{solutionsPerSquare[2]}</h1>
+          {!gridContent[2] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(2); }}>?</button>
+          )}
         </div>
         <div className="grid-item param" id="param5">
           {!parameters[4].is_image ? (
@@ -732,37 +736,34 @@ function Grid({ players }) {
           )}
         </div>
         <div
-          style={
-            gridContent[3]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[3] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(4)}
         >
           <h1>{solutionsPerSquare[3]}</h1>
+          {!gridContent[3] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(3); }}>?</button>
+          )}
         </div>
         <div
-          style={
-            gridContent[4]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[4] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(5)}
         >
           <h1>{solutionsPerSquare[4]}</h1>
+          {!gridContent[4] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(4); }}>?</button>
+          )}
         </div>
         <div
-          style={
-            gridContent[5]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[5] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(6)}
         >
           <h1>{solutionsPerSquare[5]}</h1>
+          {!gridContent[5] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(5); }}>?</button>
+          )}
         </div>
         <div className="grid-item param" id="param6">
           {!parameters[5].is_image ? (
@@ -772,37 +773,34 @@ function Grid({ players }) {
           )}
         </div>
         <div
-          style={
-            gridContent[6]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[6] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(7)}
         >
           <h1>{solutionsPerSquare[6]}</h1>
+          {!gridContent[6] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(6); }}>?</button>
+          )}
         </div>
         <div
-          style={
-            gridContent[7]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[7] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(8)}
         >
           <h1>{solutionsPerSquare[7]}</h1>
+          {!gridContent[7] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(7); }}>?</button>
+          )}
         </div>
         <div
-          style={
-            gridContent[8]
-              ? { backgroundColor: CORRECT }
-              : { backgroundColor: INCORRECT }
-          }
+          style={gridContent[8] ? { backgroundColor: CORRECT } : { backgroundColor: INCORRECT }}
           className="grid-item clickable"
           onClick={() => openModal(9)}
         >
           <h1>{solutionsPerSquare[8]}</h1>
+          {!gridContent[8] && !solutionsPerSquare.includes(0) && gameMode !== "hard" && (
+            <button className="hint-btn" onClick={(e) => { e.stopPropagation(); openHintsSquare(8); }}>?</button>
+          )}
         </div>
       </div>
     </div>

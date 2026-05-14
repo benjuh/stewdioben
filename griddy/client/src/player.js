@@ -335,10 +335,6 @@ function Player({
       let teams = logos[0];
       teams = new Set(teams);
       teams = Array.from(teams);
-      let college = {
-        logo: logos[1],
-        alt: player.college,
-      };
 
       let positions = player.position.join(", ");
       const showRealImage = index < imageRevealCount;
@@ -373,33 +369,8 @@ function Player({
             </div>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
-            <div className="player-college">
-              {college.logo ? (
-                <img
-                  src={college.logo}
-                  alt={college.alt}
-                  key={college.alt}
-                />
-              ) : (
-                <p className="college">{college.alt}</p>
-              )}
-            </div>
-            <div
-              style={{
-                float: "left",
-                borderRight: "1px solid #575757",
-                width: 20,
-                height: 70,
-                margin: "15px 20px",
-              }}
-            ></div>
+          <div className="player-logos">
+            <div className="player-divider"></div>
             <div className="player-team">
               {teams
                 ? teams.map((team, i) => (
