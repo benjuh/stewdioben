@@ -111,8 +111,15 @@ function Player({
       }
       setMatchedPlayers(new_players);
     } else {
-      let new_players = players.filter((player) => {
-        return player.name.toLowerCase().includes(searched.toLowerCase());
+      const q = searched.toLowerCase();
+      let new_players = players.filter((player) =>
+        player.name.toLowerCase().includes(q)
+      );
+      new_players.sort((a, b) => {
+        const an = a.name.toLowerCase();
+        const bn = b.name.toLowerCase();
+        const rank = (n) => (n === q ? 0 : n.startsWith(q) ? 1 : 2);
+        return rank(an) - rank(bn);
       });
       setMatchedPlayers(new_players);
     }
