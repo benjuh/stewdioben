@@ -337,7 +337,7 @@ function Player({
       return (
         <div
           className="player"
-          key={player.name}
+          key={`${player.name}-${player.position.join('')}-${player.years_played[0]}`}
           onClick={() => {
             changeSquare(player, currentSquare);
             closeModal();

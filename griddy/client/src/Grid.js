@@ -183,7 +183,7 @@ function Grid({ players }) {
   };
 
   const changeSquare = (player, square) => {
-    let new_grid = gridContent;
+    let new_grid = [...gridContent];
 
     if (checkIfSelectionIsCorrect(player, square)) {
       new_grid[square - 1] = player;
