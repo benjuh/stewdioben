@@ -100,12 +100,6 @@ function Grid({ players }) {
   const closeHints = () => { setHintsOpen(false); setHintsSquare(null); };
 
   const [search, setSearch] = React.useState("");
-  const [debouncedSearch, setDebouncedSearch] = React.useState("");
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(search), 200);
-    return () => clearTimeout(timer);
-  }, [search]);
   const [parameters, setParameters] = React.useState([
     { is_image: false, content: "" },
     { is_image: false, content: "" },
@@ -677,7 +671,7 @@ function Grid({ players }) {
             </div>
             <Player
               players={players}
-              searched={debouncedSearch}
+              searched={search}
               currentSquare={currentSquare}
               changeSquare={changeSquare}
               closeModal={closeModal}
