@@ -88,6 +88,17 @@ body {
   gap: 10px;
 }
 
+.hub-back {
+  color: #a78bfa;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+.hub-back:hover { opacity: 1; }
+
 .title {
   font-size: 28px;
   font-weight: 900;
@@ -116,10 +127,10 @@ body {
 }
 
 .mode-tab {
-  padding: 5px 14px;
+  padding: 0.4rem 1rem;
   border-radius: 20px;
   font-family: 'Raleway', sans-serif;
-  font-size: 11px;
+  font-size: 0.85rem;
   font-weight: 800;
   cursor: pointer;
   border: 1px solid var(--tile-border);
@@ -394,7 +405,7 @@ body {
 @media (max-width: 600px) {
   .header { padding: 10px 12px 8px; }
   .title  { font-size: 16px; letter-spacing: 2px; }
-  .mode-tab { padding: 4px 8px; font-size: 9px; }
+  .mode-tab { padding: 5px 10px; font-size: 11px; }
   .theme-toggle { font-size: 10px; padding: 3px 7px; }
 
   .game-container { padding: 8px 8px 6px; }
@@ -417,7 +428,7 @@ body {
 /* ── Responsive: small phone (≤390px) ── */
 @media (max-width: 390px) {
   .title { font-size: 13px; letter-spacing: 1px; }
-  .mode-tab { padding: 3px 6px; font-size: 8px; }
+  .mode-tab { padding: 4px 8px; font-size: 10px; }
 
   .mode-classic .tile { width: 44px; font-size: 1.3em; }
   .mode-quad    .tile { width: 30px; height: 30px; font-size: 0.9em; }

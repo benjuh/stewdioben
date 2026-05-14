@@ -627,6 +627,7 @@ function Grid({ players }) {
 
   return (
     <div>
+      <a href="/" className="hub-back">← stewdioben</a>
       <WinScreen />
       <Timer />
       <Hints
