@@ -30,32 +30,6 @@
   --overlay-box-bg:      #1e1e3a;
 }
 
-body.light {
-  --bg:                  #f5f0e8;
-  --bg-board:            #ffffff;
-  --bg-tile-absent:      #d3d6da;
-  --tile-border:         #d3d6da;
-  --tile-active-border:  #888888;
-  --tile-correct:        #6aaa64;
-  --tile-correct-glow:   transparent;
-  --tile-present:        #c9b458;
-  --tile-present-glow:   transparent;
-  --text:                #1a1a1a;
-  --text-muted:          #666666;
-  --key-bg:              #d3d6da;
-  --key-border:          #aaaaaa;
-  --key-text:            #1a1a1a;
-  --key-absent-bg:       #878a8c;
-  --key-absent-text:     #ffffff;
-  --tab-active-from:     #6aaa64;
-  --tab-active-to:       #c9b458;
-  --title-color:         #1a6aaa;
-  --badge-active-border: #c9b458;
-  --board-solved-border: rgba(106,170,100,0.5);
-  --board-solved-bg:     rgba(240,255,240,0.9);
-  --overlay-bg:          rgba(245,240,232,0.92);
-  --overlay-box-bg:      #ffffff;
-}
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -111,26 +85,13 @@ body {
 }
 
 .title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 900;
-  letter-spacing: 6px;
+  letter-spacing: 8px;
   color: var(--title-color);
   text-transform: uppercase;
 }
 
-.theme-toggle {
-  padding: 6px 10px;
-  background: var(--key-bg);
-  border: 1px solid var(--key-border);
-  border-radius: 20px;
-  color: var(--key-text);
-  font-family: 'Raleway', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  line-height: 1;
-}
 
 /* ── Mode tabs ── */
 .mode-tabs {
@@ -448,7 +409,6 @@ body {
   .title  { display: none; }
   .logo-tiles { display: flex; }
   .mode-tab { padding: 5px 8px; font-size: 11px; }
-  .theme-toggle { font-size: 16px; padding: 5px 8px; }
 
   .tab-label-short { display: inline; }
   .tab-label-long  { display: none; }

@@ -118,11 +118,10 @@ function Player({
       const rank = (name) => {
         const n = name.toLowerCase();
         if (n === q) return 0;
-        // All query tokens match word-level prefixes in the name (e.g. "jimmy gar" → "Jimmy Garoppolo")
+        if (n.startsWith(q)) return 1;
         const nameTokens = n.split(/\s+/);
         const queryTokens = q.split(/\s+/).filter(Boolean);
-        if (queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)))) return 1;
-        if (n.startsWith(q)) return 2;
+        if (queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)))) return 2;
         return 3;
       };
       new_players.sort((a, b) => rank(a.name) - rank(b.name));

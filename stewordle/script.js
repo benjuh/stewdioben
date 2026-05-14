@@ -17506,11 +17506,10 @@ class GameManager {
       }
     }
 
-    const isLight  = document.body.classList.contains('light');
     const colorMap = {
-      correct: isLight ? '#6aaa64' : '#22c55e',
-      present: isLight ? '#c9b458' : '#f59e0b',
-      absent:  isLight ? '#878a8c' : '#3a3a4a',
+      correct: '#22c55e',
+      present: '#f59e0b',
+      absent:  '#3a3a4a',
     };
 
     for (const btn of document.querySelectorAll('.key[data-letter]')) {
@@ -17595,18 +17594,6 @@ document.getElementById('mode-tabs').addEventListener('click', e => {
   startGame(tab.dataset.mode);
 });
 
-// Theme toggle
-const themeToggle = document.getElementById('theme-toggle');
-if (localStorage.getItem('stewordle-theme') === 'light') {
-  document.body.classList.add('light');
-  themeToggle.textContent = '☽';
-}
-themeToggle.addEventListener('click', () => {
-  const isLight = document.body.classList.toggle('light');
-  themeToggle.textContent = isLight ? '☽' : '☀';
-  localStorage.setItem('stewordle-theme', isLight ? 'light' : 'dark');
-  if (currentManager) currentManager._updateKeyboard();
-});
 
 // Physical keyboard input + key highlight
 document.addEventListener('keydown', e => {

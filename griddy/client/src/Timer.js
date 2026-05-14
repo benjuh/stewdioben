@@ -26,7 +26,10 @@ const Timer = ({ stopped }) => {
 
   return (
     <div className="timer">
-      {minutes}:{seconds >= 10 ? seconds : `0${seconds}`}
+      <span className="timer-bg">88:88</span>
+      <span className="timer-fg">
+        {minutes >= 10 ? minutes : `0${minutes}`}:{seconds >= 10 ? seconds : `0${seconds}`}
+      </span>
     </div>
   );
 };
