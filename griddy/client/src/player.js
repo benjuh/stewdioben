@@ -72,6 +72,7 @@ function Player({
   changeSquare,
   closeModal,
   isHint,
+  revealNames,
 }) {
   const MAX_PLAYERS = 100;
   const getRandomInt = (max) => {
@@ -346,7 +347,7 @@ function Player({
         >
           <div className="player-info">
             <div className="player-name">
-              {isHint ? "?" : player.name} - {positions}
+              {isHint && !revealNames ? "?" : player.name} - {positions}
             </div>
             <div className="years-played">
               ({player.years_played[0]} - {player.years_played[1]})

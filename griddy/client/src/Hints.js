@@ -25,7 +25,8 @@ const Hints = ({ solutions, hintsOpen, hintsSquare, closeHints, showNames }) => 
           changeSquare={() => {}}
           closeModal={closeHints}
           searched={""}
-          isHint={!showNames}
+          isHint={true}
+          revealNames={showNames}
           currentSquare={0}
         />
       </div>

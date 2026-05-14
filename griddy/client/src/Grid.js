@@ -710,12 +710,6 @@ function Grid({ players }) {
         showNames={hintsShowNames}
       />
       <GameMode />
-      <div className="game-actions">
-        {!gaveUp && winTime === null && (
-          <button className="action-btn give-up-btn" onClick={giveUpGame}>Give Up</button>
-        )}
-        <button className="action-btn play-again-btn-inline" onClick={() => window.location.reload()}>Play Again</button>
-      </div>
       {isOpen && (
         <div className="modal" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -876,6 +870,12 @@ function Grid({ players }) {
         </div>
       </div>
       <div className="hints-used-display">Hints Used: {hintsUsedSet.size}</div>
+      <div className="game-actions">
+        {!gaveUp && winTime === null && (
+          <button className="action-btn give-up-btn" onClick={giveUpGame}>Give Up</button>
+        )}
+        <button className="action-btn play-again-btn-inline" onClick={() => window.location.reload()}>Play Again</button>
+      </div>
     </div>
   );
 }
