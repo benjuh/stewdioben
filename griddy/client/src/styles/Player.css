@@ -12,10 +12,11 @@ html, body {
     margin: 0 auto;
     height: 480px;
     width: 100%;
+    box-sizing: border-box;
     background-color: transparent;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 8px 16px 16px;
+    padding: 8px 20px 16px;
     -ms-overflow-style: none;
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.15) transparent;
@@ -34,7 +35,7 @@ html, body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background-color: rgba(20, 20, 44, 0.9);
     margin: 6px 0;
-    padding: 10px 14px;
+    padding: 10px 20px 10px 14px;
     border-radius: 10px;
     display: flex;
     align-items: center;
