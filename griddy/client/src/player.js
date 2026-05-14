@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./styles/Player.css";
 
 import Alabama from "./assets/COLLEGE_TEAMS/Alabama.png";
@@ -75,46 +75,44 @@ function Player({
   revealNames,
 }) {
   const MAX_PLAYERS = 100;
-  const getRandomInt = (max) => {
-    return Math.floor(Math.random() * Math.floor(max));
-  };
 
-  const [matchedPlayers, setMatchedPlayers] = React.useState([]);
-
-  useEffect(() => {
-    if (searched === "" && !isHint) {
-      const indexesUsed = new Set();
-      let new_players = [];
-      while (new_players.length < MAX_PLAYERS) {
-        let index = getRandomInt(players.length);
-        while (indexesUsed.has(index)) {
-          index = getRandomInt(players.length);
-        }
-        indexesUsed.add(index);
-        new_players.push(players[index]);
-      }
-      setMatchedPlayers(new_players);
-    } else {
-      const normalize = (s) => s.toLowerCase().replace(/[-']/g, '');
-      const q = normalize(searched);
-      const queryTokens = q.split(/\s+/).filter(Boolean);
-      let new_players = players.filter((player) => {
-        if (queryTokens.length === 0) return true;
-        const nameTokens = normalize(player.name).split(/\s+/);
-        return queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)));
-      });
-      const rank = (name) => {
-        const n = normalize(name);
-        if (n === q) return 0;
-        if (n.startsWith(q)) return 1;
-        const nameTokens = n.split(/\s+/);
-        if (queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)))) return 2;
-        return 3;
-      };
-      new_players.sort((a, b) => rank(a.name) - rank(b.name));
-      setMatchedPlayers(new_players);
+  const randomPlayers = React.useMemo(() => {
+    if (!players || players.length === 0) return [];
+    const getRandomInt = (max) => Math.floor(Math.random() * max);
+    const indexesUsed = new Set();
+    const result = [];
+    const cap = Math.min(MAX_PLAYERS, players.length);
+    while (result.length < cap) {
+      let idx = getRandomInt(players.length);
+      while (indexesUsed.has(idx)) idx = getRandomInt(players.length);
+      indexesUsed.add(idx);
+      result.push(players[idx]);
     }
-  }, [searched, players]);
+    return result;
+  }, [players]);
+
+  const matchedPlayers = React.useMemo(() => {
+    if (!players || players.length === 0) return [];
+    if (searched === "" && !isHint) return randomPlayers;
+    const normalize = (s) => s.toLowerCase().replace(/[-']/g, '');
+    const q = normalize(searched);
+    const queryTokens = q.split(/\s+/).filter(Boolean);
+    const result = players.filter((player) => {
+      if (queryTokens.length === 0) return true;
+      const nameTokens = normalize(player.name).split(/\s+/);
+      return queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)));
+    });
+    const rank = (name) => {
+      const n = normalize(name);
+      if (n === q) return 0;
+      if (n.startsWith(q)) return 1;
+      const nameTokens = n.split(/\s+/);
+      if (queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)))) return 2;
+      return 3;
+    };
+    result.sort((a, b) => rank(a.name) - rank(b.name));
+    return result;
+  }, [searched, players, isHint, randomPlayers]);
 
 
   const generateLogos = (player) => {

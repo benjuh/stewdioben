@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/griddy/static/css/main.df0a41ac.css",
-    "main.js": "/griddy/static/js/main.9e41a9b4.js",
+    "main.js": "/griddy/static/js/main.9e37b078.js",
     "static/media/MIA.png": "/griddy/static/media/MIA.1121eab8da92c60c4c3b.png",
     "static/media/OhioState.png": "/griddy/static/media/OhioState.59b3a7e70a13ed89cd0d.png",
     "static/media/CLE.png": "/griddy/static/media/CLE.c4473d0e717f4fd28f83.png",
@@ -46,10 +46,10 @@
     "static/media/Stanford.png": "/griddy/static/media/Stanford.d1e71a4bb149ea9222da.png",
     "index.html": "/griddy/index.html",
     "main.df0a41ac.css.map": "/griddy/static/css/main.df0a41ac.css.map",
-    "main.9e41a9b4.js.map": "/griddy/static/js/main.9e41a9b4.js.map"
+    "main.9e37b078.js.map": "/griddy/static/js/main.9e37b078.js.map"
   },
   "entrypoints": [
     "static/css/main.df0a41ac.css",
-    "static/js/main.9e41a9b4.js"
+    "static/js/main.9e37b078.js"
   ]
 }

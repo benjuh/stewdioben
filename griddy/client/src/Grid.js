@@ -207,6 +207,7 @@ function Grid({ players }) {
 
   const closeModal = () => {
     setModalOpen(false);
+    setSearch("");
   };
 
   const handler = (e) => {
