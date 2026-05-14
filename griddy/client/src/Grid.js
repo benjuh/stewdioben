@@ -73,7 +73,7 @@ function Grid({ players }) {
     if (!players) {
       return;
     }
-    generateParameters(players);
+    generateParameters();
   }, [players]);
 
   const MININUM_SOLUTIONS = 15;
@@ -193,7 +193,8 @@ function Grid({ players }) {
     }
   };
 
-  const generateParameters = (playerList) => {
+  const generateParameters = () => {
+    for (let _attempt = 0; _attempt < 500; _attempt++) {
     const params = [];
     let teams = 4;
     let positions = 1;
@@ -453,11 +454,11 @@ function Grid({ players }) {
       });
     }
     params.sort(() => Math.random() - 0.5);
-    if (!canSolveGriddy(params)) {
-      generateParameters(playerList);
-    } else {
+    if (canSolveGriddy(params)) {
       setParameters(params);
+      return;
     }
+    } // end for loop
   };
 
   const [solutionsPerSquare, setSolutionsPerSquare] = React.useState([
@@ -629,8 +630,16 @@ function Grid({ players }) {
     setSearch(e.target.value);
   };
 
+  const isLoading = !players || solutionsPerSquare.every(n => n === 0);
+
   return (
     <div>
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="loading-spinner"></div>
+          <p className="loading-text">Setting up game…</p>
+        </div>
+      )}
       <WinScreen />
       <div className="griddy-header">
         <a href="/" className="hub-back">← Hub</a>
@@ -645,8 +654,8 @@ function Grid({ players }) {
       />
       <GameMode />
       {isOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="search-container">
               <input
                 type="text"

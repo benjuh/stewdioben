@@ -89,15 +89,26 @@ body {
 }
 
 .hub-back {
-  color: #a78bfa;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(167, 139, 250, 0.8);
   text-decoration: none;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  opacity: 0.7;
-  transition: opacity 0.15s;
+  letter-spacing: 0.04em;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 20px;
+  padding: 6px 14px;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
-.hub-back:hover { opacity: 1; }
+.hub-back:hover {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.15);
+  border-color: rgba(167, 139, 250, 0.5);
+}
 
 .title {
   font-size: 28px;
@@ -401,12 +412,23 @@ body {
   .mode-16   .tile { width: 20px; height: 20px; font-size: 0.6em; }
 }
 
+/* ── Tab label visibility ── */
+.tab-label-short { display: none; }
+.tab-label-long  { display: inline; }
+
+/* ── Logo icon (hidden on desktop) ── */
+.logo-icon { display: none; }
+
 /* ── Responsive: mobile (≤600px) ── */
 @media (max-width: 600px) {
   .header { padding: 10px 12px 8px; }
-  .title  { font-size: 16px; letter-spacing: 2px; }
-  .mode-tab { padding: 5px 10px; font-size: 11px; }
+  .title  { display: none; }
+  .logo-icon { display: inline-block; flex-shrink: 0; }
+  .mode-tab { padding: 5px 8px; font-size: 11px; }
   .theme-toggle { font-size: 10px; padding: 3px 7px; }
+
+  .tab-label-short { display: inline; }
+  .tab-label-long  { display: none; }
 
   .game-container { padding: 8px 8px 6px; }
 
@@ -418,8 +440,8 @@ body {
   .mode-octo    .tile { width: 30px; height: 30px; font-size: 0.9em; }
   .mode-16      .tile { width: 14px; height: 14px; font-size: 0.45em; }
 
-  .key { height: 42px; font-size: 10px; }
-  .key.key-wide { max-width: 52px; font-size: 9px; }
+  .key { height: 50px; font-size: 12px; }
+  .key.key-wide { max-width: 60px; font-size: 11px; }
   .keyboard-row { gap: 3px; }
   .keyboard { gap: 4px; }
   .keyboard-container { padding: 6px 8px 12px; }
@@ -434,8 +456,8 @@ body {
   .mode-quad    .tile { width: 30px; height: 30px; font-size: 0.9em; }
   .mode-octo    .tile { width: 26px; height: 26px; font-size: 0.8em; }
 
-  .key { height: 38px; font-size: 9px; }
-  .key.key-wide { max-width: 48px; }
+  .key { height: 44px; font-size: 11px; }
+  .key.key-wide { max-width: 54px; font-size: 10px; }
   .keyboard-row { gap: 2px; }
   .keyboard { gap: 3px; }
 }
