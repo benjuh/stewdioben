@@ -76,7 +76,7 @@ function Grid({ players }) {
     generateParameters();
   }, [players]);
 
-  const MININUM_SOLUTIONS = 15;
+  const MININUM_SOLUTIONS = 10;
 
   const CORRECT = defaults.COLORS.CORRECT;
   const INCORRECT = defaults.COLORS.INCORRECT;
@@ -457,9 +457,19 @@ function Grid({ players }) {
         paramType: "college",
       });
     }
-    params.sort(() => Math.random() - 0.5);
-    if (canSolveGriddy(params)) {
-      setParameters(params);
+    // Separate teams from non-teams. Keep 3 teams on the top axis (params[0-2])
+    // and 1 team + position + college on the side axis (params[3-5]).
+    // This prevents a position×college intersection, which is too sparse to satisfy.
+    const teamParams = params.filter(p => p.paramType === 'teams');
+    const nonTeamParams = params.filter(p => p.paramType !== 'teams');
+    teamParams.sort(() => Math.random() - 0.5);
+    nonTeamParams.sort(() => Math.random() - 0.5);
+    const orderedParams = [
+      teamParams[0], teamParams[1], teamParams[2],
+      teamParams[3], nonTeamParams[0], nonTeamParams[1],
+    ];
+    if (canSolveGriddy(orderedParams)) {
+      setParameters(orderedParams);
       return;
     }
     } // end for loop
