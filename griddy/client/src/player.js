@@ -115,12 +115,17 @@ function Player({
       let new_players = players.filter((player) =>
         player.name.toLowerCase().includes(q)
       );
-      new_players.sort((a, b) => {
-        const an = a.name.toLowerCase();
-        const bn = b.name.toLowerCase();
-        const rank = (n) => (n === q ? 0 : n.startsWith(q) ? 1 : 2);
-        return rank(an) - rank(bn);
-      });
+      const rank = (name) => {
+        const n = name.toLowerCase();
+        if (n === q) return 0;
+        // All query tokens match word-level prefixes in the name (e.g. "jimmy gar" → "Jimmy Garoppolo")
+        const nameTokens = n.split(/\s+/);
+        const queryTokens = q.split(/\s+/).filter(Boolean);
+        if (queryTokens.every(qt => nameTokens.some(nt => nt.startsWith(qt)))) return 1;
+        if (n.startsWith(q)) return 2;
+        return 3;
+      };
+      new_players.sort((a, b) => rank(a.name) - rank(b.name));
       setMatchedPlayers(new_players);
     }
   }, [searched, players]);
