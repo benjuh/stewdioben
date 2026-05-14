@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Black background, rounded -->
+  <rect width="32" height="32" rx="6" fill="#000000"/>
+  <!-- Yellow border -->
+  <rect x="2" y="2" width="28" height="28" rx="4.5" fill="none" stroke="#FFD700" stroke-width="2.5"/>
+  <!-- Bold S -->
+  <text x="16.5" y="23"
+    text-anchor="middle"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="19"
+    fill="white">S</text>
+</svg>

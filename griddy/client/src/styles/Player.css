@@ -120,3 +120,24 @@ html, body {
 .player-divider {
     display: none;
 }
+
+@media (max-width: 600px) {
+    .container {
+        padding: 8px 12px 16px;
+    }
+    .player {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+    .player-photo, .player-image {
+        width: 44px;
+        height: 44px;
+    }
+    .player-logos {
+        max-width: 72px;
+    }
+    .player-team img {
+        width: 22px;
+        height: 22px;
+    }
+}
