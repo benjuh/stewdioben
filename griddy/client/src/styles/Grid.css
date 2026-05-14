@@ -253,6 +253,7 @@ html, body {
 
 .searchbar {
     width: 100%;
+    box-sizing: border-box;
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border);
     border-radius: 8px;

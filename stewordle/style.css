@@ -119,16 +119,17 @@ body {
 }
 
 .theme-toggle {
-  padding: 4px 10px;
+  padding: 6px 10px;
   background: var(--key-bg);
   border: 1px solid var(--key-border);
   border-radius: 20px;
   color: var(--key-text);
   font-family: 'Raleway', sans-serif;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
+  line-height: 1;
 }
 
 /* ── Mode tabs ── */
@@ -419,13 +420,23 @@ body {
 /* ── Logo icon (hidden on desktop) ── */
 .logo-icon { display: none; }
 
+/* SVG logo colors follow theme */
+.logo-icon rect { fill: var(--bg); stroke: var(--tile-active-border); }
+.logo-icon text { fill: var(--tile-correct); }
+
 /* ── Responsive: mobile (≤600px) ── */
 @media (max-width: 600px) {
-  .header { padding: 10px 12px 8px; }
+  .header { padding: 10px 12px 8px; position: relative; }
   .title  { display: none; }
-  .logo-icon { display: inline-block; flex-shrink: 0; }
+  .logo-icon {
+    display: inline-block;
+    flex-shrink: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   .mode-tab { padding: 5px 8px; font-size: 11px; }
-  .theme-toggle { font-size: 10px; padding: 3px 7px; }
+  .theme-toggle { font-size: 16px; padding: 5px 8px; }
 
   .tab-label-short { display: inline; }
   .tab-label-long  { display: none; }
@@ -435,8 +446,8 @@ body {
   .board-grid.mode-classic { width: auto; max-width: calc(100vw - 32px); }
   .board-grid.mode-octo    { grid-template-columns: repeat(2, 1fr); }
 
-  .mode-classic .tile { width: 52px; height: auto; max-height: 64px; font-size: 1.6em; }
-  .mode-quad    .tile { width: 36px; height: 36px; font-size: 1.1em; }
+  .mode-classic .tile { width: 62px; height: auto; max-height: 80px; font-size: 2em; }
+  .mode-quad    .tile { width: 38px; height: 38px; font-size: 1.2em; }
   .mode-octo    .tile { width: 30px; height: 30px; font-size: 0.9em; }
   .mode-16      .tile { width: 14px; height: 14px; font-size: 0.45em; }
 

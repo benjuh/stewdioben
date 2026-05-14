@@ -17599,11 +17599,11 @@ document.getElementById('mode-tabs').addEventListener('click', e => {
 const themeToggle = document.getElementById('theme-toggle');
 if (localStorage.getItem('stewordle-theme') === 'light') {
   document.body.classList.add('light');
-  themeToggle.textContent = '☽ Dark';
+  themeToggle.textContent = '🌙';
 }
 themeToggle.addEventListener('click', () => {
   const isLight = document.body.classList.toggle('light');
-  themeToggle.textContent = isLight ? '☽ Dark' : '☀ Light';
+  themeToggle.textContent = isLight ? '🌙' : '☀';
   localStorage.setItem('stewordle-theme', isLight ? 'light' : 'dark');
   if (currentManager) currentManager._updateKeyboard();
 });
