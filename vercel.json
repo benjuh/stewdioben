@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npm run build",
+  "rewrites": [
+    { "source": "/griddy", "destination": "/griddy/client/build/index.html" },
+    { "source": "/griddy/:path*", "destination": "/griddy/client/build/:path*" }
+  ]
+}
