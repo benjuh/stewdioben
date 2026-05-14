@@ -12,6 +12,6 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testPathPattern": "api/"
+    "testMatch": ["**/api/**/*.test.js"]
   }
 }
