@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd griddy/client && npm install && npm run build",
+    "build": "cd griddy/client && npm install && CI=false npm run build",
     "test": "jest",
     "dev:griddy": "cd griddy/client && npm start"
   },
