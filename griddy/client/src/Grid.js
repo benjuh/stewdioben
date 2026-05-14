@@ -194,7 +194,11 @@ function Grid({ players }) {
   };
 
   const generateParameters = () => {
-    for (let _attempt = 0; _attempt < 500; _attempt++) {
+    (async () => {
+    for (let _attempt = 0; _attempt < 2000; _attempt++) {
+      if (_attempt > 0 && _attempt % 50 === 0) {
+        await new Promise(r => setTimeout(r, 0));
+      }
     const params = [];
     let teams = 4;
     let positions = 1;
@@ -459,6 +463,7 @@ function Grid({ players }) {
       return;
     }
     } // end for loop
+    })();
   };
 
   const [solutionsPerSquare, setSolutionsPerSquare] = React.useState([
