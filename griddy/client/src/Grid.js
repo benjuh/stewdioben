@@ -214,15 +214,8 @@ function Grid({ players }) {
     const positionIndexes = new Set();
     while (positionIndexes.size < positions) {
       let index = Math.floor(Math.random() * defaults.POSITIONS.length);
-      if (
-        defaults.POSITIONS[index] === "K" ||
-        defaults.POSITIONS[index] === "P" ||
-        defaults.POSITIONS[index] === "LS" ||
-        defaults.POSITIONS[index] === "FB" ||
-        defaults.POSITIONS[index] === "OL" ||
-        defaults.POSITIONS[index] === "DL" ||
-        defaults.POSITIONS[index] === "KR"
-      ) {
+      const allowed = new Set(['WR', 'RB', 'QB', 'DB', 'TE']);
+      if (!allowed.has(defaults.POSITIONS[index])) {
         continue;
       }
       positionIndexes.add(index);

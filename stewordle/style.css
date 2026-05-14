@@ -417,24 +417,53 @@ body {
 .tab-label-short { display: none; }
 .tab-label-long  { display: inline; }
 
-/* ── Logo icon (hidden on desktop) ── */
-.logo-icon { display: none; }
+/* ── Word-tile logo (hidden on desktop) ── */
+.logo-tiles {
+  display: none;
+  gap: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-/* SVG logo colors follow theme */
-.logo-icon rect { fill: var(--bg); stroke: var(--tile-active-border); }
-.logo-icon text { fill: var(--tile-correct); }
+.logo-tile {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--tile-border);
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.logo-tile--correct {
+  background: var(--tile-correct);
+  border-color: var(--tile-correct);
+  color: #fff;
+}
+
+.logo-tile--absent {
+  background: var(--bg-tile-absent);
+  border-color: var(--bg-tile-absent);
+  color: var(--text-muted);
+}
+
+.logo-tile--present {
+  background: var(--tile-present);
+  border-color: var(--tile-present);
+  color: #fff;
+}
 
 /* ── Responsive: mobile (≤600px) ── */
 @media (max-width: 600px) {
   .header { padding: 10px 12px 8px; position: relative; }
   .title  { display: none; }
-  .logo-icon {
-    display: inline-block;
-    flex-shrink: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  .logo-tiles { display: flex; }
   .mode-tab { padding: 5px 8px; font-size: 11px; }
   .theme-toggle { font-size: 16px; padding: 5px 8px; }
 
